@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Profile | OpenTree Registry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f8faf8;
+            --card-bg: #ffffff;
+            --accent-mint: #d8f3dc;
+            --accent-sage: #b7e4c7;
+            --accent-blush: #ffe5ec;
+            --primary-green: #2d6a4f;
+            --text-dark: #1b4332;
+            --text-muted: #52b788;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: #2d3748;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, var(--accent-mint) 0%, var(--accent-sage) 100%);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            text-decoration: none;
+            color: var(--primary-green);
+            background: rgba(255, 255, 255, 0.85);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            transform: translateX(-2px);
+        }
+
+        .badge-id {
+            display: inline-block;
+            background: var(--primary-green);
+            color: white;
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .tree-title {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .tree-sci {
+            font-style: italic;
+            color: #40916c;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .info-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .info-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #718096;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .value {
+            font-size: 1rem;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--accent-blush);
+            color: #9b2c2c;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 3rem;
+            color: #e53e3e;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.25rem 1rem;
+            background-color: #f7fafc;
+            font-size: 0.8rem;
+            color: #718096;
+            border-top: 1px solid #edf2f7;
+            line-height: 1.4;
+        }
+
+        footer strong {
+            color: var(--primary-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container" id="profileContent">
+        <!-- Content will be dynamically rendered here -->
+    </div>
+
+    <script>
+        const treeData = {
+            "TREE-01": {
+                commonName: "Sago Palm",
+                scientificName: "Cycas revoluta",
+                category: "Gymnosperm / Cycad",
+                logDate: "09/07/2026",
+                description: "An ancient, slow-growing plant with feathery evergreen leaves arranged in a rosette. Often used as an ornamental centerpiece.",
+                benefits: "Air purification, ornamental garden aesthetics, evolutionary study icon."
+            },
+            "TREE-02": {
+                commonName: "Kerai Payung / Fern Tree",
+                scientificName: "Filicium decipiens",
+                category: "Evergreen Canopy Tree",
+                logDate: "09/07/2026",
+                description: "Recognized by its dense foliage resembling fern leaves. Provides dense shade and grows into a symmetric dome.",
+                benefits: "Urban heat reduction, shade canopy, ornamental street landscaping."
+            },
+            "TREE-03": {
+                commonName: "Vasaka / Malabar Nut",
+                scientificName: "Justicia adhatoda",
+                category: "Medicinal Shrub",
+                logDate: "09/07/2026",
+                description: "A medicinal shrub with broad, lance-shaped leaves and white tubular flowers. Known for extensive use in traditional healthcare.",
+                benefits: "Respiratory wellness, pollinator habitat, soil stabilization."
+            },
+            "TREE-04": {
+                commonName: "White Orchid Tree",
+                scientificName: "Bauhinia acuminata",
+                category: "Flowering Shrub",
+                logDate: "09/07/2026",
+                description: "Features distinct twin-lobed leaves resembling butterfly wings and fragrant snow-white blossoms.",
+                benefits: "Butterfly attractor, nitrogen-fixing soil enrichment, aesthetic landscaping."
+            },
+            "TREE-05": {
+                commonName: "Beach Spider Lily",
+                scientificName: "Hymenocallis littoralis",
+                category: "Perennial Herb",
+                logDate: "09/07/2026",
+                description: "Perennial plant producing striking spider-like white flowers with long, delicate petals springing from a central cup.",
+                benefits: "Soil erosion prevention, low-maintenance green border, fragrance."
+            },
+            "TREE-06": {
+                commonName: "Firebush",
+                scientificName: "Hamelia patens",
+                category: "Flowering Shrub",
+                logDate: "09/07/2026",
+                description: "Fast-growing shrub with vibrant reddish-orange tubular flowers that bloom continuously in tropical environments.",
+                benefits: "Hummingbird and butterfly haven, drought resistance, continuous bloom."
+            },
+            "TREE-07": {
+                commonName: "Brazilian Firetree",
+                scientificName: "Schizolobium parahyba",
+                category: "Canopy Tree",
+                logDate: "09/07/2026",
+                description: "Renowned for its rapid growth rate, fern-like foliage, and brilliant yellow floral displays in bloom season.",
+                benefits: "Rapid reforestation, tall canopy shade, rich organic leaf litter."
+            },
+            "TREE-08": {
+                commonName: "Banyan Tree",
+                scientificName: "Ficus benghalensis",
+                category: "Keystone Fig Species",
+                logDate: "09/07/2026",
+                description: "A massive tree famous for sending down aerial prop roots that develop into sturdy wooden trunks over time.",
+                benefits: "Major biodiversity hub, bird feeding site, massive oxygen production."
+            },
+            "TREE-09": {
+                commonName: "Parakeet Flower / Heliconia",
+                scientificName: "Heliconia psittacorum",
+                category: "Tropical Perennial",
+                logDate: "09/07/2026",
+                description: "Features glossy banana-like leaves and bright orange to red bracts resembling a parrot's beak.",
+                benefits: "Nectar source for pollinators, understory landscaping accent."
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const treeId = urlParams.get('id');
+        const container = document.getElementById('profileContent');
+
+        if (treeId && treeData[treeId]) {
+            const tree = treeData[treeId];
+            container.innerHTML = `
+                <div class="header-banner">
+                    <a href="index.html" class="back-btn">← Catalog</a>
+                    <span class="badge-id">${treeId}</span>
+                    <h1 class="tree-title">${tree.commonName}</h1>
+                    <div class="tree-sci">${tree.scientificName}</div>
+                </div>
+                <div class="content">
+                    <div class="info-section">
+                        <div class="label">Classification</div>
+                        <div class="value"><span class="tag">${tree.category}</span></div>
+                    </div>
+                    <div class="info-section">
+                        <div class="label">Description</div>
+                        <div class="value">${tree.description}</div>
+                    </div>
+                    <div class="info-section">
+                        <div class="label">Ecological Benefits</div>
+                        <div class="value">${tree.benefits}</div>
+                    </div>
+                    <div class="info-section">
+                        <div class="label">Registry Date</div>
+                        <div class="value">${tree.logDate}</div>
+                    </div>
+                </div>
+                <footer>
+                    <strong>OpenTree Registry</strong> • EcoClub Digital Identity<br>
+                    Developed by <strong>Dhruv Dhayfule</strong>, <strong>Rudra Nishad</strong> & <strong>Daksh Raj</strong>
+                </footer>
+            `;
+        } else {
+            container.innerHTML = `
+                <div class="error-message">
+                    <h2>Tree Profile Not Found</h2>
+                    <p style="margin: 1rem 0; color: #718096;">Please select a valid tree from the registry catalog.</p>
+                    <a href="index.html" class="back-btn" style="position: static; display: inline-block;">Return to Catalog</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
