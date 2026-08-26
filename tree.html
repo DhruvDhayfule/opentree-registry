@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tree Profile | OpenTree Registry</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-main: #f4f7f4;
             --card-bg: #ffffff;
             --primary-green: #2d6a4f;
-            --hover-green: #1b4332;
-            --accent-light: #d8f3dc;
+            --dark-green: #1b4332;
+            --accent-mint: #d8f3dc;
             --accent-sage: #b7e4c7;
             --text-dark: #1b4332;
             --text-muted: #52796f;
             --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-            --radius: 16px;
+            --radius: 18px;
         }
 
         * {
@@ -30,67 +30,80 @@
             background-color: var(--bg-main);
             color: #2d3748;
             padding-bottom: 3rem;
+            line-height: 1.6;
         }
 
-        header {
-            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+        .header-bar {
+            background: var(--dark-green);
             color: white;
-            padding: 2.5rem 1.5rem 2rem;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
-            box-shadow: var(--shadow);
-        }
-
-        .header-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .back-link {
-            display: inline-flex;
+            padding: 1rem 1.5rem;
+            display: flex;
             align-items: center;
-            color: var(--accent-light);
+            justify-content: space-between;
+        }
+
+        .back-btn {
+            color: var(--accent-mint);
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            transition: color 0.2s ease;
-        }
-
-        .back-link:hover {
-            color: #ffffff;
-        }
-
-        .tree-header-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .botanical-subtitle {
-            font-size: 1.15rem;
-            font-style: italic;
-            color: var(--accent-light);
-            margin-bottom: 1rem;
-        }
-
-        .id-badge {
-            display: inline-block;
-            background: var(--accent-light);
-            color: var(--text-dark);
-            padding: 0.25rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-size: 0.9rem;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 2rem auto 0;
-            padding: 0 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            padding: 0 1.25rem;
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+            color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .tree-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.25rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .common-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+
+        .botanical-name {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--accent-mint);
+        }
+
+        .image-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 0.75rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            text-align: center;
+        }
+
+        .tree-photo {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: calc(var(--radius) - 4px);
+            display: block;
         }
 
         .section-card {
@@ -98,85 +111,87 @@
             border-radius: var(--radius);
             padding: 1.75rem;
             box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
             border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
         .section-title {
             font-size: 1.15rem;
             font-weight: 700;
-            color: var(--primary-green);
+            color: var(--text-dark);
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            border-bottom: 2px solid var(--accent-light);
-            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-mint);
+            padding-bottom: 0.4rem;
         }
 
-        /* Taxonomy Grid */
         .taxonomy-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.75rem;
         }
 
         .tax-item {
-            background: #f8faf8;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            border-left: 3px solid var(--primary-green);
+            background: var(--bg-main);
+            padding: 0.75rem;
+            border-radius: 12px;
+            text-align: center;
         }
 
         .tax-label {
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: var(--text-muted);
             font-weight: 700;
         }
 
-        .tax-value {
+        .tax-val {
             font-size: 0.95rem;
             font-weight: 600;
             color: var(--text-dark);
-            margin-top: 0.15rem;
+            margin-top: 0.2rem;
         }
 
-        .scientific-italics {
-            font-style: italic;
-        }
+        .tax-val.italic { font-style: italic; }
 
-        p, ul {
-            font-size: 0.98rem;
-            line-height: 1.6;
+        ul.info-list { list-style-type: none; }
+        ul.info-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
             color: #4a5568;
         }
+        ul.info-list li::before {
+            content: "•";
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0.4rem;
+            top: -0.1rem;
+        }
 
-        /* School Footer Card */
         .school-card {
-            background: linear-gradient(135deg, #e8f5e9 0%, #d8f3dc 100%);
-            border: 1px solid var(--accent-sage);
+            background: var(--accent-mint);
+            border-left: 5px solid var(--primary-green);
         }
 
         .school-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
-            margin-top: 0.75rem;
         }
 
-        .school-info-item span {
+        .school-item strong {
             display: block;
-        }
-
-        .school-info-label {
-            font-size: 0.75rem;
-            font-weight: 700;
+            font-size: 0.8rem;
             color: var(--text-muted);
             text-transform: uppercase;
         }
 
-        .school-info-val {
+        .school-item span {
             font-size: 0.95rem;
             font-weight: 700;
             color: var(--text-dark);
@@ -192,263 +207,197 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="back-link">← Back to Catalog</a>
-            <div id="headerTag"></div>
-            <h1 class="tree-header-title" id="commonName">Loading...</h1>
-            <div class="botanical-subtitle" id="botanicalName"></div>
-        </div>
-    </header>
-
-    <div class="container" id="profileContent">
-
-        <!-- Taxonomy / Scientific Classification -->
-        <div class="section-card">
-            <h2 class="section-title">🔬 Scientific Classification</h2>
-            <div class="taxonomy-grid">
-                <div class="tax-item"><div class="tax-label">Kingdom</div><div class="tax-value" id="taxKingdom">Plantae</div></div>
-                <div class="tax-item"><div class="tax-label">Division</div><div class="tax-value" id="taxDivision">-</div></div>
-                <div class="tax-item"><div class="tax-label">Class</div><div class="tax-value" id="taxClass">-</div></div>
-                <div class="tax-item"><div class="tax-label">Order</div><div class="tax-value" id="taxOrder">-</div></div>
-                <div class="tax-item"><div class="tax-label">Family</div><div class="tax-value" id="taxFamily">-</div></div>
-                <div class="tax-item"><div class="tax-label">Genus</div><div class="tax-value scientific-italics" id="taxGenus">-</div></div>
-                <div class="tax-item"><div class="tax-label">Species</div><div class="tax-value scientific-italics" id="taxSpecies">-</div></div>
-            </div>
-        </div>
-
-        <!-- About the Tree -->
-        <div class="section-card">
-            <h2 class="section-title">📖 About the Tree</h2>
-            <p id="aboutDescription">Loading description...</p>
-        </div>
-
-        <!-- Benefits and Uses -->
-        <div class="section-card">
-            <h2 class="section-title">💡 Benefits & Uses</h2>
-            <p id="benefitsText">Loading benefits...</p>
-        </div>
-
-        <!-- Ecological Importance -->
-        <div class="section-card">
-            <h2 class="section-title">🌍 Ecological Importance</h2>
-            <p id="ecologicalText">Loading ecological details...</p>
-        </div>
-
-        <!-- Flowering and Fruiting Season -->
-        <div class="section-card">
-            <h2 class="section-title">🌸 Flowering & Fruiting Season</h2>
-            <p id="seasonText">Loading season info...</p>
-        </div>
-
-        <!-- Interesting Facts -->
-        <div class="section-card">
-            <h2 class="section-title">⭐ Interesting Facts</h2>
-            <p id="factsText">Loading facts...</p>
-        </div>
-
-        <!-- School Details -->
-        <div class="section-card school-card">
-            <h2 class="section-title" style="color: var(--text-dark);">🏫 Campus Registry Details</h2>
-            <div class="school-grid">
-                <div class="school-info-item">
-                    <span class="school-info-label">School Name</span>
-                    <span class="school-info-val" id="schoolName">Campus Botanical Garden</span>
-                </div>
-                <div class="school-info-item">
-                    <span class="school-info-label">Eco Club</span>
-                    <span class="school-info-val" id="ecoClubName">OpenTree Eco Club</span>
-                </div>
-                <div class="school-info-item">
-                    <span class="school-info-label">Tree ID</span>
-                    <span class="school-info-val" id="displayTreeId">-</span>
-                </div>
-                <div class="school-info-item">
-                    <span class="school-info-label">Location on Campus</span>
-                    <span class="school-info-val" id="campusLocation">Main Quadrangle</span>
-                </div>
-            </div>
-        </div>
-
+    <div class="header-bar">
+        <a href="index.html" class="back-btn">← Back to Catalog</a>
+        <span style="font-size: 0.85rem; opacity: 0.8;">OpenTree Registry</span>
     </div>
 
-    <footer>
-        <p>OpenTree Registry • Digital Campus Botanical Tag</p>
-    </footer>
+    <div class="container" id="profileContainer"></div>
+
+    <footer>OpenTree Registry • Campus Botanical Directory</footer>
 
     <script>
-        const treeDatabase = {
+        const treeData = {
             "TREE-01": {
                 commonName: "Sago Palm",
-                genus: "Cycas",
-                species: "revoluta",
-                division: "Cycadophyta",
-                class: "Cycadopsida",
-                order: "Cycadales",
-                family: "Cycadaceae",
-                description: "A slow-growing, palm-like gymnosperm featuring a thick wooden trunk covered in leaf scars and a crown of stiff, glossy dark-green fronds.",
-                benefits: "Widely cultivated as an ornamental plant for landscape design. Starch extracted from its stem was historically processed as a staple food source.",
-                ecologicalImportance: "Provides long-term soil stabilization, creates micro-habitat shade for beneficial ground soil insects, and captures atmospheric carbon year-round.",
-                season: "Produces reproductive cones during early summer months (May to July).",
-                facts: "Despite its common name and appearance, the Sago Palm is not a true palm tree at all! It is a gymnosperm closely related to conifers and ginkgos.",
-                location: "Front Entrance Courtyard"
+                botanicalName: "Cycas revoluta",
+                image: "https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Cycadophyta", class: "Cycadopsida", order: "Cycadales", family: "Cycadaceae", genus: "Cycas", species: "revoluta" },
+                description: "A slow-growing, rugged gymnosperm featuring a thick shaggy trunk crowned with glossy, feather-like dark green fronds.",
+                benefits: ["Popular ornamental landscape plant worldwide", "Starch extracted from trunk processed traditionally as sago"],
+                ecologicalImportance: "Provides shelter for beneficial garden insects and contributes to urban soil stabilization.",
+                season: "Produces new leaves in Spring; cones mature in Summer.",
+                facts: ["Not a true palm! It is a cycad, an ancient plant family from the dinosaur era.", "Extremely long-lived, surviving over 100 years."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-01", plantationDate: "August 2021" }
             },
             "TREE-02": {
                 commonName: "Kerai Payung / Fern Tree",
-                genus: "Filicium",
-                species: "decipiens",
-                division: "Magnoliophyta",
-                class: "Magnoliopsida",
-                order: "Sapindales",
-                family: "Sapindaceae",
-                description: "An evergreen shade tree recognized by its symmetrical, umbrella-shaped canopy and fine fern-like leaves with winged rachis stems.",
-                benefits: "Excellent shade tree for school parks and avenues due to its dense foliage and non-invasive root system.",
-                ecologicalImportance: "Filters air pollutants, reduces ambient thermal temperature around walkways, and provides roosting shelter for small campus birds.",
-                season: "Flowering occurs from March to May; small drupe fruits mature by late autumn.",
-                facts: "Its genus name 'Filicium' comes from the Latin word for fern, named because its leaves closely resemble lush fern fronds.",
-                location: "Central Library Garden"
+                botanicalName: "Filicium decipiens",
+                image: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Magnoliopsida", order: "Sapindales", family: "Sapindaceae", genus: "Filicium", species: "decipiens" },
+                description: "An elegant shade tree known for its dense, symmetrical dome-shaped canopy and fern-like glossy green foliage.",
+                benefits: ["Provides exceptional urban shade and cooling", "Frequently planted along avenues for aesthetic enhancement"],
+                ecologicalImportance: "Filters air pollutants, reduces heat island effect, and prevents topsoil erosion.",
+                season: "Flowering from March to May; fruiting from June to August.",
+                facts: ["The fern-like leaves are compound leaves with winged rachis stems.", "Highly resistant to strong urban winds."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-02", plantationDate: "July 2022" }
             },
             "TREE-03": {
                 commonName: "Vasaka / Malabar Nut",
-                genus: "Justicia",
-                species: "adhatoda",
-                division: "Magnoliophyta",
-                class: "Magnoliopsida",
-                order: "Lamiales",
-                family: "Acanthaceae",
-                description: "A dense medicinal shrub or small tree native to Asia, featuring large lance-shaped leaves and distinct white hooded flowers with purple vein markings.",
-                benefits: "Renowned in Ayurvedic and traditional medicine for supporting respiratory health and treating coughs and asthma.",
-                ecologicalImportance: "Acts as a key nectar supplier for pollinators including native honeybees, butterflies, and sunbirds.",
-                season: "Flowers prominently from December through April during the cool winter season.",
-                facts: "Leaves of Vasaka contain the alkaloid 'vasicine', which is extracted scientifically to create modern respiratory throat medicines.",
-                location: "Herbal & Medicinal Garden"
+                botanicalName: "Justicia adhatoda",
+                image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Magnoliopsida", order: "Lamiales", family: "Acanthaceae", genus: "Justicia", species: "adhatoda" },
+                description: "A medicinal shrub featuring lance-shaped leaves and dense spikes of white flowers with purple vein markings.",
+                benefits: ["Widely used in Ayurveda to treat coughs and respiratory issues", "Contains vasicine, a potent bronchodilator"],
+                ecologicalImportance: "Attracts native bees, butterflies, and nectar-feeding pollinators.",
+                season: "Flowers and fruits during Winter and early Spring (December to April).",
+                facts: ["Leaves act as a natural pesticide due to bitter alkaloid contents.", "Reverence in traditional medicine spans over 2,000 years."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-03", plantationDate: "October 2022" }
             },
             "TREE-04": {
                 commonName: "White Orchid Tree",
-                genus: "Bauhinia",
-                species: "acuminata",
-                division: "Magnoliophyta",
-                class: "Magnoliopsida",
-                order: "Fabaceae",
-                family: "Fabaceae",
-                description: "A small deciduous tree or large shrub featuring signature two-lobed 'camel foot' leaves and snowy white five-petaled fragrant flowers.",
-                benefits: "Popular ornamental flora used for campus aesthetics, hedgerows, and educational botanical study.",
-                ecologicalImportance: "As a legume family member, it helps naturally enrich soil nitrogen levels through root symbiosis.",
-                season: "Blooms profusely from spring to late summer (March through August).",
-                facts: "The genus Bauhinia was named after the Bauhin herbalist twin brothers, symbolizing the tree's unique paired two-lobed leaves!",
-                location: "Science Block Pathway"
+                botanicalName: "Bauhinia acuminata",
+                image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Magnoliopsida", order: "Fabales", family: "Fabaceae", genus: "Bauhinia", species: "acuminata" },
+                description: "A small deciduous shrub or tree producing delicate, snowy-white five-petaled orchid-like blossoms.",
+                benefits: ["Highly valued ornamental garden tree", "Used in traditional herbal remedies for skin conditions"],
+                ecologicalImportance: "Supports nitrogen fixation in soil and acts as a food source for pollinators.",
+                season: "Blooms heavily throughout Spring and early Summer (April to July).",
+                facts: ["Has twin-lobed leaf shapes resembling butterfly wings.", "Flowers release a light sweet fragrance in early morning."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-04", plantationDate: "November 2022" }
             },
             "TREE-05": {
                 commonName: "Beach Spider Lily",
-                genus: "Hymenocallis",
-                species: "littoralis",
-                division: "Magnoliophyta",
-                class: "Liliopsida",
-                order: "Asparagales",
-                family: "Amaryllidaceae",
-                description: "A perennial flowering plant with long strap-shaped leaves and fragrant spider-like white blossoms with long trailing petals.",
-                benefits: "Used extensively in outdoor landscape borders and biological garden displays.",
-                ecologicalImportance: "The fragrant nectar-rich blossoms attract night-flying moths and daytime butterflies, boosting garden biodiversity.",
-                season: "Flowers periodically throughout warmer summer and monsoon months (June to September).",
-                facts: "Its botanical name 'Hymenocallis' stems from Greek words meaning 'beautiful membrane', referring to the cup joining its stamens.",
-                location: "Biology Dept Quad"
+                botanicalName: "Hymenocallis littoralis",
+                image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Liliopsida", order: "Asparagales", family: "Amaryllidaceae", genus: "Hymenocallis", species: "littoralis" },
+                description: "A perennial bulbous plant featuring strappy green leaves and fragrant white flowers with long spider-like petals.",
+                benefits: ["Stunning accent plant for coastal and water-edge landscaping", "Extremely low-maintenance and drought tolerant once established"],
+                ecologicalImportance: "Stabilizes soil around water bodies and provides nectar for nocturnal moths.",
+                season: "Peak flowering occurs during late Spring through Summer.",
+                facts: ["The central white cup of the blossom is called a staminal cup.", "Native to tropical coastal regions of America."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-05", plantationDate: "January 2023" }
             },
             "TREE-06": {
                 commonName: "Firebush",
-                genus: "Hamelia",
-                species: "patens",
-                division: "Magnoliophyta",
-                class: "Magnoliopsida",
-                order: "Gentianales",
-                family: "Rubiaceae",
-                description: "A fast-growing perennial shrub known for its whorled reddish leaves and tubular bright orange-red cluster flowers.",
-                benefits: "Frequently planted as a colorful hedge and biological attraction for wildlife corridors.",
-                ecologicalImportance: "One of the best floral species for attracting pollinators; birds feed eagerly on its ripening dark berries.",
-                season: "Blooms almost continuously year-round in warm tropical climates.",
-                facts: "Crushed leaves of the Firebush have traditionally been applied topically to soothe insect bites and minor skin irritations.",
-                location: "Sports Ground Border"
+                botanicalName: "Hamelia patens",
+                image: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Magnoliopsida", order: "Gentianales", family: "Rubiaceae", genus: "Hamelia", species: "patens" },
+                description: "A fast-growing evergreen shrub known for its bright reddish-orange tubular flowers and shiny foliage.",
+                benefits: ["Excellent hedging plant", "Used traditionally for treating insect bites and skin irritations"],
+                ecologicalImportance: "Top pollinator plant: magnetic attraction for hummingbirds, bees, and butterflies.",
+                season: "Blooms year-round in warm climates, peaking May to November.",
+                facts: ["Leaves turn attractive copper-red in full sunlight.", "Berries change from red to black as they ripen."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-06", plantationDate: "March 2023" }
             },
             "TREE-07": {
                 commonName: "Brazilian Firetree",
-                genus: "Schizolobium",
-                species: "parahyba",
-                division: "Magnoliophyta",
-                class: "Magnoliopsida",
-                order: "Fabaceae",
-                family: "Fabaceae",
-                description: "A striking fast-growing tropical tree with smooth green trunk bark, massive fern-like fronds, and intense golden-yellow blooms.",
-                benefits: "Provides rapid high canopy cover and striking ornamental shade along wide open landscape driveways.",
-                ecologicalImportance: "Prevents soil erosion with deep root networks and provides high vertical roosting foliage for urban bird species.",
-                season: "Flowering occurs in late spring (April to June) when canopy turns vibrant yellow.",
-                facts: "It is one of the fastest-growing trees in the world, capable of reaching over 3 meters (10 feet) of height growth in a single year!",
-                location: "Assembly Avenue"
+                botanicalName: "Schizolobium parahyba",
+                image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Magnoliopsida", order: "Fabales", family: "Fabaceae", genus: "Schizolobium", species: "parahyba" },
+                description: "A fast-growing tropical tree with huge fern-like leaves and a vibrant yellow flowering canopy.",
+                benefits: ["Rapid canopy development for shade in reforestation projects", "Lightweight wood used for pulp and crafts"],
+                ecologicalImportance: "Enhances soil fertility via natural leaf mulch decomposition.",
+                season: "Flowering occurs in late Spring during leaf change.",
+                facts: ["One of the fastest-growing trees in the world, growing up to 3 meters per year!", "Young stems stay bright emerald green for years."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-07", plantationDate: "June 2023" }
             },
             "TREE-08": {
                 commonName: "Banyan Tree",
-                genus: "Ficus",
-                species: "benghalensis",
-                division: "Magnoliophyta",
-                class: "Magnoliopsida",
-                order: "Rosales",
-                family: "Moraceae",
-                description: "A massive keystone fig tree producing prop aerial roots that drop to the ground and turn into woody secondary trunks over time.",
-                benefits: "Provides immense canopy shade, cultural significance, and natural cooling across surrounding grounds.",
-                ecologicalImportance: "A crucial ecosystem keystone species supporting hundreds of insect, bird, mammal, and bat species with shelter and figs.",
-                season: "Bears small red fig fruits twice annually, typically between March to May and September to November.",
-                facts: "A single Banyan tree can grow to resemble an entire forest due to its expanding pillar-like aerial prop roots!",
-                location: "East Playground Lawn"
+                botanicalName: "Ficus benghalensis",
+                image: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Magnoliopsida", order: "Rosales", family: "Moraceae", genus: "Ficus", species: "benghalensis" },
+                description: "A massive keystone fig tree famous for its aerial prop roots that drop to the ground and turn into thick woody trunks.",
+                benefits: ["Massive shade generator", "Bark, leaves, and sap widely utilized in traditional medicine"],
+                ecologicalImportance: "A crucial ecological hub providing shelter and food for hundreds of bird, bat, and insect species.",
+                season: "Figs ripen twice yearly, mainly between April and July.",
+                facts: ["National tree of India.", "A single Banyan tree can expand over centuries to resemble an entire forest!"],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-08", plantationDate: "August 2020" }
             },
             "TREE-09": {
                 commonName: "Parakeet Flower / Heliconia",
-                genus: "Heliconia",
-                species: "psittacorum",
-                division: "Magnoliophyta",
-                class: "Liliopsida",
-                order: "Zingiberales",
-                family: "Heliconiaceae",
-                description: "An herbaceous tropical perennial with long banana-like leaves and bright orange-yellow parrot-beak shaped flower bracts.",
-                benefits: "Popular as a premium long-lasting cut flower and vibrant landscape accent plant.",
-                ecologicalImportance: "Bract cups collect rainwater creating specialized micro-reservoirs (phytotelmata) for tiny aquatic beneficial insects.",
-                season: "Flowering peaks during late spring and monsoon months (May through October).",
-                facts: "The common name 'Parakeet Flower' comes from the shape of its colorful floral bracts, which closely resemble a parrot's beak!",
-                location: "Eco Club Demonstration Area"
+                botanicalName: "Heliconia psittacorum",
+                image: "https://images.unsplash.com/photo-1533038590840-1cde6e668a91?auto=format&fit=crop&w=800&q=80",
+                taxonomy: { kingdom: "Plantae", division: "Tracheophyta", class: "Liliopsida", order: "Zingiberales", family: "Heliconiaceae", genus: "Heliconia", species: "psittacorum" },
+                description: "A tropical perennial featuring paddle-like foliage and long-lasting bright orange-yellow flower bracts.",
+                benefits: ["Popular cut flower for decorative floral arrangements", "Excellent landscape border plant"],
+                ecologicalImportance: "Crucial nectar provider for specialized long-billed hummingbirds.",
+                season: "Blooms continuously in warm humid conditions.",
+                facts: ["The colorful part of the flower is actually a modified leaf called a bract!", "Closely related to bananas and bird-of-paradise plants."],
+                schoolDetails: { schoolName: "Lodha World School LSG", clubName: "EcoClub / Nature Club", treeId: "TREE-09", plantationDate: "September 2023" }
             }
         };
 
-        function loadTreeProfile() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id') || "TREE-01";
-            const tree = treeDatabase[id] || treeDatabase["TREE-01"];
+        const defaultTree = treeData["TREE-01"];
 
-            // Header info
-            document.getElementById('headerTag').innerHTML = `<span class="id-badge">${id}</span>`;
-            document.getElementById('commonName').innerText = tree.commonName;
-            
-            // Format botanical name (Genus capitalized, species lowercase, all in italics)
-            const formattedBotanical = `<i>${tree.genus} ${tree.species}</i>`;
-            document.getElementById('botanicalName').innerHTML = formattedBotanical;
+        function renderProfile() {
+            const params = new URLSearchParams(window.location.search);
+            const treeId = params.get('id');
+            const data = treeData[treeId] || defaultTree;
 
-            // Taxonomy
-            document.getElementById('taxDivision').innerText = tree.division;
-            document.getElementById('taxClass').innerText = tree.class;
-            document.getElementById('taxOrder').innerText = tree.order;
-            document.getElementById('taxFamily').innerText = tree.family;
-            document.getElementById('taxGenus').innerHTML = `<i>${tree.genus}</i>`;
-            document.getElementById('taxSpecies').innerHTML = `<i>${tree.species}</i>`;
+            const container = document.getElementById('profileContainer');
+            container.innerHTML = `
+                <div class="hero-card">
+                    <span class="tree-badge">${data.schoolDetails.treeId}</span>
+                    <h1 class="common-name">${data.commonName}</h1>
+                    <div class="botanical-name">${data.botanicalName}</div>
+                </div>
 
-            // Text fields
-            document.getElementById('aboutDescription').innerText = tree.description;
-            document.getElementById('benefitsText').innerText = tree.benefits;
-            document.getElementById('ecologicalText').innerText = tree.ecologicalImportance;
-            document.getElementById('seasonText').innerText = tree.season;
-            document.getElementById('factsText').innerText = tree.facts;
+                <div class="image-card">
+                    <img src="${data.image}" alt="${data.commonName}" class="tree-photo" onerror="this.src='https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80';">
+                </div>
 
-            // School & Registry Details
-            document.getElementById('displayTreeId').innerText = id;
-            document.getElementById('campusLocation').innerText = tree.location;
+                <div class="section-card">
+                    <div class="section-title">🏛️ Taxonomic Classification</div>
+                    <div class="taxonomy-grid">
+                        <div class="tax-item"><div class="tax-label">Kingdom</div><div class="tax-val">${data.taxonomy.kingdom}</div></div>
+                        <div class="tax-item"><div class="tax-label">Division</div><div class="tax-val">${data.taxonomy.division}</div></div>
+                        <div class="tax-item"><div class="tax-label">Class</div><div class="tax-val">${data.taxonomy.class}</div></div>
+                        <div class="tax-item"><div class="tax-label">Order</div><div class="tax-val">${data.taxonomy.order}</div></div>
+                        <div class="tax-item"><div class="tax-label">Family</div><div class="tax-val">${data.taxonomy.family}</div></div>
+                        <div class="tax-item"><div class="tax-label">Genus</div><div class="tax-val italic">${data.taxonomy.genus}</div></div>
+                        <div class="tax-item"><div class="tax-label">Species</div><div class="tax-val italic">${data.taxonomy.species}</div></div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-title">📖 About the Tree</div>
+                    <p>${data.description}</p>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-title">💡 Benefits & Uses</div>
+                    <ul class="info-list">${data.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-title">🌍 Ecological Importance</div>
+                    <p>${data.ecologicalImportance}</p>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-title">🌸 Flowering & Fruiting Season</div>
+                    <p>${data.season}</p>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-title">✨ Interesting Facts</div>
+                    <ul class="info-list">${data.facts.map(f => `<li>${f}</li>`).join('')}</ul>
+                </div>
+
+                <div class="section-card school-card">
+                    <div class="section-title" style="border-bottom-color: var(--primary-green);">🏫 School Details</div>
+                    <div class="school-grid">
+                        <div class="school-item"><strong>School Name</strong><span>${data.schoolDetails.schoolName}</span></div>
+                        <div class="school-item"><strong>Eco Club / Nature Club</strong><span>${data.schoolDetails.clubName}</span></div>
+                        <div class="school-item"><strong>Tree ID</strong><span>${data.schoolDetails.treeId}</span></div>
+                        <div class="school-item"><strong>Date of Plantation</strong><span>${data.schoolDetails.plantationDate}</span></div>
+                    </div>
+                </div>
+            `;
         }
 
-        window.addEventListener('DOMContentLoaded', loadTreeProfile);
+        renderProfile();
     </script>
 </body>
 </html>
