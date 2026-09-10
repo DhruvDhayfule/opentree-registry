@@ -9,18 +9,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 50%, #e0f2f1 100%);
-      --card-bg: rgba(255, 255, 255, 0.85);
-      --card-accent-bg: #f4fbf7;
-      --text-main: #1b4332;
-      --text-muted: #52796f;
-      --accent: #2d6a4f;
-      --accent-bright: #40916c;
-      --badge-bg: #d8f3dc;
+      --bg-gradient: radial-gradient(circle at 50% 10%, #e8f5e9 0%, #d8f3dc 40%, #c7f9cc 100%);
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --card-accent-bg: rgba(244, 251, 247, 0.8);
+      --text-main: #0b2b1a;
+      --text-muted: #2d6a4f;
+      --accent: #1b4332;
+      --accent-bright: #52b788;
+      --badge-bg: rgba(216, 243, 220, 0.8);
       --badge-text: #1b4332;
-      --shadow: 0 10px 25px -5px rgba(45, 106, 79, 0.08), 0 8px 10px -6px rgba(45, 106, 79, 0.04);
-      --shadow-hover: 0 20px 35px -10px rgba(45, 106, 79, 0.22);
-      --radius: 20px;
+      --shadow: 0 10px 30px -5px rgba(27, 67, 50, 0.1);
+      --shadow-hover: 0 20px 40px -10px rgba(45, 106, 79, 0.25);
+      --radius: 24px;
     }
 
     * {
@@ -41,14 +41,25 @@
       overflow-x: hidden;
     }
 
-    /* Soft Cursor Backlight */
+    /* Falling Leaf Particle Canvas */
+    #leafCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glow Effect Following Cursor */
     .cursor-glow {
       position: fixed;
       top: 0;
       left: 0;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(183, 228, 199, 0.45) 0%, rgba(216, 243, 220, 0.15) 50%, rgba(255, 255, 255, 0) 70%);
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(116, 198, 157, 0.35) 0%, rgba(183, 228, 199, 0.15) 50%, rgba(255, 255, 255, 0) 70%);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
@@ -69,31 +80,33 @@
 
     .badge {
       display: inline-block;
-      background-color: var(--badge-bg);
+      background: var(--badge-bg);
+      backdrop-filter: blur(10px);
       color: var(--badge-text);
       font-size: 0.85rem;
-      font-weight: 700;
-      padding: 0.4rem 1.2rem;
+      font-weight: 800;
+      padding: 0.5rem 1.4rem;
       border-radius: 50px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       margin-bottom: 1rem;
-      box-shadow: 0 2px 8px rgba(45, 106, 79, 0.1);
+      border: 1px solid rgba(116, 198, 157, 0.6);
+      box-shadow: 0 0 15px rgba(116, 198, 157, 0.3);
       animation: float 4s ease-in-out infinite;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-6px); }
     }
 
     header h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       font-weight: 800;
       color: var(--accent);
-      letter-spacing: -1px;
+      letter-spacing: -1.5px;
       margin-bottom: 0.5rem;
-      text-shadow: 0 2px 10px rgba(45, 106, 79, 0.05);
+      text-shadow: 0 0 20px rgba(116, 198, 157, 0.2);
     }
 
     header p {
@@ -102,24 +115,33 @@
       font-weight: 600;
     }
 
+    .header-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 1.8rem;
+    }
+
     .search-container {
-      max-width: 520px;
-      margin: 2rem auto 0;
+      max-width: 420px;
+      width: 100%;
       position: relative;
     }
 
     .search-container input {
       width: 100%;
-      padding: 1rem 1.5rem 1rem 3rem;
-      border: 2px solid #b7e4c7;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
+      padding: 0.9rem 1.5rem 0.9rem 3.2rem;
+      border: 2px solid rgba(116, 198, 157, 0.6);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
       border-radius: 30px;
       font-size: 1rem;
       font-family: inherit;
       color: var(--text-main);
       outline: none;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 8px 20px rgba(27, 67, 50, 0.05);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -136,8 +158,28 @@
 
     .search-container input:focus {
       border-color: var(--accent-bright);
-      background: #ffffff;
-      box-shadow: 0 0 0 5px rgba(64, 145, 108, 0.2), 0 8px 25px rgba(45, 106, 79, 0.1);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 20px rgba(82, 183, 136, 0.4);
+    }
+
+    .btn-qr {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.6rem;
+      background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 30px;
+      border: 1px solid rgba(116, 198, 157, 0.5);
+      box-shadow: 0 4px 15px rgba(27, 67, 50, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn-qr:hover {
+      box-shadow: 0 0 25px rgba(82, 183, 136, 0.6);
+      transform: translateY(-2px);
     }
 
     .plant-grid {
@@ -151,20 +193,23 @@
 
     .plant-card {
       background: var(--card-bg);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(16px);
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      border: 1px solid rgba(183, 228, 199, 0.6);
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
       transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       display: flex;
       flex-direction: column;
       transform-style: preserve-3d;
       will-change: transform;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
     }
 
     .plant-card:hover {
-      box-shadow: var(--shadow-hover);
+      box-shadow: var(--shadow-hover), 0 0 20px rgba(116, 198, 157, 0.3);
       border-color: var(--accent-bright);
     }
 
@@ -189,25 +234,44 @@
 
     .plant-card-content {
       padding: 1.5rem;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, var(--card-accent-bg) 100%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, var(--card-accent-bg) 100%);
       display: flex;
       flex-direction: column;
       flex-grow: 1;
       justify-content: space-between;
     }
 
-    .plant-card h3 {
+    .plant-info h3 {
       font-size: 1.3rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-main);
       margin-bottom: 0.2rem;
     }
 
-    .plant-card p {
+    .plant-info p {
       font-size: 0.95rem;
       color: var(--text-muted);
       font-style: italic;
       font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(116, 198, 157, 0.4);
+      padding-top: 0.8rem;
+    }
+
+    .btn-view {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      letter-spacing: 0.5px;
     }
 
     footer {
@@ -217,22 +281,26 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       font-weight: 600;
-      border-top: 2px dashed #b7e4c7;
+      border-top: 2px dashed rgba(116, 198, 157, 0.6);
       padding-top: 2rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Cursor Backlight Effect -->
+  <canvas id="leafCanvas"></canvas>
   <div class="cursor-glow" id="cursorGlow"></div>
 
   <header>
-    <span class="badge">🌱 Eco Club Registry</span>
+    <span class="badge">🌱 Eco Club Cyber-Registry</span>
     <h1>OpenTree Registry</h1>
     <p>Explore our campus botanical diversity catalog</p>
-    <div class="search-container">
-      <input type="text" id="searchInput" onkeyup="filterPlants()" placeholder="Search plants or botanical names...">
+
+    <div class="header-actions">
+      <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="filterPlants()" placeholder="Search plants or botanical names...">
+      </div>
+      <a href="qr.html" class="btn-qr">📱 Print QR Labels</a>
     </div>
   </header>
 
@@ -240,103 +308,148 @@
     <section class="plant-grid" id="plantGrid">
       
       <!-- 1. Sago Palm -->
-      <article class="plant-card">
+      <a href="tree.html?id=sago-palm" class="plant-card">
         <div class="img-wrapper">
           <img src="images/sago-palm.jpg" alt="Sago Palm">
         </div>
         <div class="plant-card-content">
-          <h3>Sago Palm</h3>
-          <p>Cycas revoluta</p>
+          <div class="plant-info">
+            <h3>Sago Palm</h3>
+            <p>Cycas revoluta</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 2. Kerai Payung -->
-      <article class="plant-card">
+      <a href="tree.html?id=kerai-payung" class="plant-card">
         <div class="img-wrapper">
           <img src="images/ferntree.jpg" alt="Kerai Payung">
         </div>
         <div class="plant-card-content">
-          <h3>Kerai Payung</h3>
-          <p>Filicium decipiens</p>
+          <div class="plant-info">
+            <h3>Kerai Payung</h3>
+            <p>Filicium decipiens</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 3. Vasaka -->
-      <article class="plant-card">
+      <a href="tree.html?id=vasaka" class="plant-card">
         <div class="img-wrapper">
           <img src="images/malabar-nut.jpg" alt="Vasaka">
         </div>
         <div class="plant-card-content">
-          <h3>Vasaka</h3>
-          <p>Justicia adhatoda</p>
+          <div class="plant-info">
+            <h3>Vasaka</h3>
+            <p>Justicia adhatoda</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 4. White Orchid Tree -->
-      <article class="plant-card">
+      <a href="tree.html?id=white-orchid-tree" class="plant-card">
         <div class="img-wrapper">
           <img src="images/white-orchard-tree.jpg" alt="White Orchid Tree">
         </div>
         <div class="plant-card-content">
-          <h3>White Orchid Tree</h3>
-          <p>Bauhinia variegata var. candida</p>
+          <div class="plant-info">
+            <h3>White Orchid Tree</h3>
+            <p>Bauhinia variegata var. candida</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 5. Beach Spider Lily -->
-      <article class="plant-card">
+      <a href="tree.html?id=beach-spider-lily" class="plant-card">
         <div class="img-wrapper">
           <img src="images/beach-spider-lily.jpg" alt="Beach Spider Lily">
         </div>
         <div class="plant-card-content">
-          <h3>Beach Spider Lily</h3>
-          <p>Hymenocallis littoralis</p>
+          <div class="plant-info">
+            <h3>Beach Spider Lily</h3>
+            <p>Hymenocallis littoralis</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 6. Firebush -->
-      <article class="plant-card">
+      <a href="tree.html?id=firebush" class="plant-card">
         <div class="img-wrapper">
           <img src="images/firebush.webp" alt="Firebush">
         </div>
         <div class="plant-card-content">
-          <h3>Firebush</h3>
-          <p>Hamelia patens</p>
+          <div class="plant-info">
+            <h3>Firebush</h3>
+            <p>Hamelia patens</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 7. Brazilian Firetree -->
-      <article class="plant-card">
+      <a href="tree.html?id=brazilian-firetree" class="plant-card">
         <div class="img-wrapper">
           <img src="images/brazillian-firetree.jpg" alt="Brazilian Firetree">
         </div>
         <div class="plant-card-content">
-          <h3>Brazilian Firetree</h3>
-          <p>Schizolobium parahyba</p>
+          <div class="plant-info">
+            <h3>Brazilian Firetree</h3>
+            <p>Schizolobium parahyba</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 8. Banyan Tree -->
-      <article class="plant-card">
+      <a href="tree.html?id=banyan-tree" class="plant-card">
         <div class="img-wrapper">
           <img src="images/banyan-tree.jpg" alt="Banyan Tree">
         </div>
         <div class="plant-card-content">
-          <h3>Banyan Tree</h3>
-          <p>Ficus benghalensis</p>
+          <div class="plant-info">
+            <h3>Banyan Tree</h3>
+            <p>Ficus benghalensis</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
       <!-- 9. Parakeet Flower -->
-      <article class="plant-card">
+      <a href="tree.html?id=parakeet-flower" class="plant-card">
         <div class="img-wrapper">
           <img src="images/parakeet-flower.jpg" alt="Parakeet Flower">
         </div>
         <div class="plant-card-content">
-          <h3>Parakeet Flower</h3>
-          <p>Heliconia psittacorum</p>
+          <div class="plant-info">
+            <h3>Parakeet Flower</h3>
+            <p>Heliconia psittacorum</p>
+          </div>
+          <div class="card-footer">
+            <span class="btn-view">View Details &rarr;</span>
+          </div>
         </div>
-      </article>
+      </a>
 
     </section>
   </main>
@@ -346,24 +459,88 @@
   </footer>
 
   <script>
-    // 1. Cursor-Following Soft Backlight Effect
+    // Falling Leaf Particles Background
+    const canvas = document.getElementById('leafCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    class Leaf {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * -height;
+        this.size = Math.random() * 12 + 8;
+        this.speedY = Math.random() * 1.2 + 0.5;
+        this.speedX = Math.random() * 0.8 - 0.4;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.02;
+        this.opacity = Math.random() * 0.4 + 0.2;
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.01) + this.speedX;
+        this.rotation += this.rotSpeed;
+
+        if (this.y > height + 20) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = `rgba(82, 183, 136, ${this.opacity})`;
+
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size);
+        ctx.quadraticCurveTo(this.size / 2, 0, 0, this.size);
+        ctx.quadraticCurveTo(-this.size / 2, 0, 0, -this.size);
+        ctx.fill();
+
+        ctx.restore();
+      }
+    }
+
+    const leaves = Array.from({ length: 30 }, () => new Leaf());
+
+    function animateLeaves() {
+      ctx.clearRect(0, 0, width, height);
+      leaves.forEach(leaf => {
+        leaf.update();
+        leaf.draw();
+      });
+      requestAnimationFrame(animateLeaves);
+    }
+    animateLeaves();
+
+    // Cursor Backlight Glow
     const glow = document.getElementById('cursorGlow');
     window.addEventListener('mousemove', (e) => {
       glow.style.left = `${e.clientX}px`;
       glow.style.top = `${e.clientY}px`;
     });
 
-    // 2. Interactive 3D Tilt Effect on Cards
+    // 3D Card Hover Effect
     const cards = document.querySelectorAll('.plant-card');
     cards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
         const rotateX = ((y - centerY) / centerY) * -8;
         const rotateY = ((x - centerX) / centerX) * 8;
         
@@ -375,7 +552,7 @@
       });
     });
 
-    // 3. Search Filter Logic
+    // Live Search Filter
     function filterPlants() {
       const input = document.getElementById('searchInput');
       const filter = input.value.toLowerCase();
